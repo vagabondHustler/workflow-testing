@@ -17,5 +17,11 @@
 			"labels": ["chore", "other"]
 		}
 	],
-	"pr_template": "- ${{TITLE}}"
+	"pr_template": "- ${{TITLE}}",
+	"transformers": [
+		{
+			"pattern": "(?!\\*\\n)\\v(\\n)",
+			"target": "$1```"
+		}
+	]
 }
