@@ -17,6 +17,7 @@
 			"labels": ["chore", "other"]
 		}
 	],
+	"template": "${{CHANGELOG}} abc",
 	"pr_template": "- ${{TITLE}}",
 	"transformers": [
 		{
