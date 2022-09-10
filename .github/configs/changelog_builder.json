@@ -17,7 +17,7 @@
 			"labels": ["chore", "other"]
 		}
 	],
-	"template": "${{CHANGELOG}}\na\nb<details>\nc<summary>Uncategorized</summary>\nd\ne${{UNCATEGORIZED}}\nf</details>",
+	"template": "${{CHANGELOG}}\n\n<details>\nc<summary>Uncategorized</summary>\n\n${{UNCATEGORIZED}}\n</details>",
 	"pr_template": "- ${{TITLE}}",
 	"transformers": [
 		{
