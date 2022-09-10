@@ -21,7 +21,7 @@ jobs:
           configuration: .github/configs/changelog_builder.json
           ignorePreReleases: ${{ !contains(github.ref, '-') }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Publish
         uses: softprops/action-gh-release@v1
