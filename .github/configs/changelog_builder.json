@@ -1,0 +1,28 @@
+{
+	"categories": [
+		{
+			"title": "**✨ Features:**",
+			"labels": ["feature"]
+		},
+		{
+			"title": "**🐛 Fixes:**",
+			"labels": ["fix"]
+		},
+		{
+			"title": "**🧪Tests:**",
+			"labels": ["test"]
+		},
+		{
+			"title": "**🚧 Chores:**",
+			"labels": ["chore", "other"]
+		}
+	],
+	"template": "${{CHANGELOG}}\na\nb<details>\nc<summary>Uncategorized</summary>\nd\ne${{UNCATEGORIZED}}\nf</details>",
+	"pr_template": "- ${{TITLE}}",
+	"transformers": [
+		{
+			"pattern": "[\\-\\*] (\\[(...|TEST|CI|SKIP)\\])( )?(.+?)\n(.+?[\\-\\*] )(.+)",
+			"target": "- $4\n abc123 \n  - $6"
+		}
+	]
+}
