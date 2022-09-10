@@ -35,7 +35,7 @@ jobs:
         run: |
           echo "${{steps.github_release.outputs.changelog}}" > asdf.txt
           (Get-content asdf.txt) | Foreach-Object {$_ -replace "(?!\*\n)\v(\n)", "``````"} | Set-Content asdf.txt
-          output=$(cat asdf.txt)
+          output=$(type asdf.txt)
           echo "::set-output name=changelog::$output"
           
       - name: Publish
