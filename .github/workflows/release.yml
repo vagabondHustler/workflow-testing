@@ -18,6 +18,9 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
           git_user_signingkey: true
           git_commit_gpgsign: true
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "*"
       - uses: actions/checkout@v3
         with:
           ref: main
@@ -34,13 +37,13 @@ jobs:
         id: new_changelog
         run: |
           echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.txt
-          (Get-content tmp_changelog.txt) | Foreach-Object {$_ -replace "(?!\*\n)\v(\n)", "``````"} | Set-Content tmp_changelog.txt
+          echo "::set-output name=changelog::$(python scripts/reformat_changelog.py ${{steps.github_release.outputs.changelog}})"
 
       - name: Publish
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          body: tmp_changelog.txt
+          body: ${{steps.new_changelog.outputs.changelog}}
           prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
           files: |
             tmp_changelog.txt
