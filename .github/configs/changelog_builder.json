@@ -17,12 +17,5 @@
 			"labels": ["chore", "other"]
 		}
 	],
-	"template": "${{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n${{UNCATEGORIZED}}\n</details>",
-	"pr_template": "- ${{TITLE}}",
-	"transformers": [
-		{
-			"pattern": "[\\-\\*] (\\[(...|TEST|CI|SKIP)\\])( )?(.+?)\n(.+?[\\-\\*] )(.+)",
-			"target": "- $4\n abc123 \n  - $6"
-		}
-	]
+	"pr_template": "- ${{TITLE}}"
 }
