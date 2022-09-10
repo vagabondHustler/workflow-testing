@@ -31,19 +31,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
       - name: Something
+        id: new_changelog
         run: |
           echo "${{steps.github_release.outputs.changelog}}" > asdf.txt
-          git status
-          git add asdf.txt
-          git commit -S -m "asdf"
-          git fetch origin main
-          git push origin HEAD:main
-
+          (Get-content asdf.txt) | Foreach-Object {$_ -replace "(?!\*\n)\v(\n)", "``````"} | Set-Content asdf.txt
+          output=$(cat asdf.txt)
+          echo "::set-output name=changelog::$output"
+          
       - name: Publish
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          body: ${{steps.github_release.outputs.changelog}}
+          body: ${{steps.new_changelog.outputs.changelog}}
           prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
           files: |
             asdf.txt
