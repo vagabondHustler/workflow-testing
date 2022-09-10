@@ -18,11 +18,5 @@
 		}
 	],
 	"template": "${{CHANGELOG}} abc",
-	"pr_template": "- ${{TITLE}}",
-	"transformers": [
-		{
-			"pattern": "(?!\\*\\n)\\v(\\n)",
-			"target": "$1```"
-		}
-	]
+	"pr_template": "- ${{TITLE}}"
 }
