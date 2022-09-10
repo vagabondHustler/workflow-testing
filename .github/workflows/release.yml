@@ -35,9 +35,8 @@ jobs:
         run: |
           echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.txt
           (Get-content tmp_changelog.txt) | Foreach-Object {$_ -replace "(?!\*\n)\v(\n)", "``````"} | Set-Content tmp_changelog.txt
-          output=$(type tmp_changelog.txt)
-          echo "::set-output name=changelog::$output"
-          
+          echo "::set-output name=changelog::$(cat tmp_changelog.txt)"
+
       - name: Publish
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
