@@ -17,6 +17,6 @@
 			"labels": ["chore", "other"]
 		}
 	],
-	"template": "${{CHANGELOG}}\n**Full changelog:**[_${{CHANGES}}_](${{RELEASE_DIFF}})",
-	"pr_template": "${{TITLE}}: [_${{NUMBER}}_](${{URL}}) - _@${{AUTHOR}}_"
+	"template": "${{CHANGELOG}}\n\n![prtsc_language](https://raw.githubusercontent.com/vagabondHustler/subsearch/main/src/subsearch/gui/assets/icon/subsearch.png) **Misc:**\n\nFull changelog: [_here_](${{RELEASE_DIFF}})",
+	"pr_template": "###### ${{TITLE}}: [_PR${{NUMBER}}_](${{URL}}) - _${{AUTHOR}}_"
 }
