@@ -36,11 +36,12 @@ jobs:
       - name: Something
         id: new_changelog
         run: |
-          echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md 
+          echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md
           $sha256_string = Get-FileHash -Path "tmp_changelog.md" -Algorithm SHA256 | Select-Object -ExpandProperty Hash
-          echo "###### Full changelog: \
-          [${{ github.ref_name }}](https://github.com/vagabondHustler/subsearch/compare/v0.0.1-rc1...${{ github.ref_name }}) \
-          <p>VirusTotal analysis: [tmp_changelog.md](https://www.virustotal.com/gui/file/$sha256_string)</sup>" >> tmp_changelog.md
+          $line1 = "###### Full changelog:"
+          $line2 = "[${{ github.ref_name }}](https://github.com/vagabondHustler/subsearch/compare/v0.0.2...${{ github.ref_name }})"
+          $line2 = "<p>VirusTotal analysis: [tmp_changelog.md](https://www.virustotal.com/gui/file/$sha256_string)</sup>" 
+          echo $line1 $line2 $line3 >> tmp_changelog.md
       # - name: Update changelog
       #   run: >
       #     echo "###### Full changelog:
