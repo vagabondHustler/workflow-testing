@@ -33,10 +33,10 @@ jobs:
           ignorePreReleases: ${{ !contains(github.ref, '-') }}
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
-      # - name: Something
-      #   id: new_changelog
-      #   run: |
-      #     echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md
+      - name: Something
+        id: new_changelog
+        run: |
+          echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md
       #     ls
       #     python scripts/reformat_changelog.py
       #     echo "::set-output name=changelog::$(cat tmp_changelog.md)"
