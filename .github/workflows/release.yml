@@ -38,14 +38,16 @@ jobs:
         run: |
           echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md
           $sha256_string = Get-FileHash -Path "tmp_changelog.md" -Algorithm SHA256 | Select-Object -ExpandProperty Hash
-          echo "<sup>[💠VirusTotal analysis](https://www.virustotal.com/gui/file/$sha256_string)</sup>" >> tmp_changelog.md
-
-      - name: Update changelog
-        run: >
-          echo "###### Full changelog: 
-          [${{ github.ref_name }}](https://github.com/vagabondHustler/subsearch/compare/v0.0.1-rc1...${{ github.ref_name }})
-          <p>VirusTotal analysis: [tmp_changelog.md](https://www.virustotal.com/gui/file/$sha256_string)</sup>"
+          echo "###### Full changelog: \
+          [${{ github.ref_name }}](https://github.com/vagabondHustler/subsearch/compare/v0.0.1-rc1...${{ github.ref_name }}) \
+          <p>VirusTotal analysis: [tmp_changelog.md](https://www.virustotal.com/gui/file/$sha256_string)</sup>" \
           >> tmp_changelog.md
+      # - name: Update changelog
+      #   run: >
+      #     echo "###### Full changelog:
+      #     [${{ github.ref_name }}](https://github.com/vagabondHustler/subsearch/compare/v0.0.1-rc1...${{ github.ref_name }})
+      #     <p>VirusTotal analysis: [tmp_changelog.md](https://www.virustotal.com/gui/file/$sha256_string)</sup>"
+      #     >> tmp_changelog.md
       #     echo "::set-output name=changelog::$(cat tmp_changelog.md)"
       - name: Publish
         uses: softprops/action-gh-release@v1
