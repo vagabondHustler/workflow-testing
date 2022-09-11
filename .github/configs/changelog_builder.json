@@ -17,15 +17,14 @@
 			"labels": ["chore", "other"]
 		}
 	],
-	"template": "**TESTs**\n${{TEST[*]}}\n\n${{CHANGELOG}}\n\n${{TEST[*]}}",
-	"pr_template": "${{TEST}} - ${{TITLE}}",
+	"template": "${{CHANGELOG}}${{TEST[*}}",
+	"pr_template": "${{TITLE}} :: [PR${{NUMBER}}](${{URL}})",
 	"custom_placeholders": [
     {
       "name": "TEST",
       "source": "BODY",
       "transformer": {
-        "pattern": "(\\n\\n)",
-        "target": "123"
+        "target": "ASDF ${{CHANGES}}"
       }
     }
   ]
