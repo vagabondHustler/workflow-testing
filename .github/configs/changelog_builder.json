@@ -17,15 +17,6 @@
 			"labels": ["chore", "other"]
 		}
 	],
-	"template": "${{CHANGELOG}}${{TEST[*]}}",
-	"pr_template": "_PR_: [**${{TITLE}}**](${{URL}})",
-	"custom_placeholders": [
-    {
-      "name": "TEST",
-      "source": "BODY",
-      "transformer": {
-        "target": "ASDF ${{CHANGES}}"
-      }
-    }
-  ]
+	"template": "${{CHANGELOG}}\n\n [Full changelog](${{RELEASE_DIFF}})",
+	"pr_template": "_PR_: [**${{TITLE}}**](${{URL}})"
 }
