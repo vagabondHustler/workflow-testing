@@ -1,22 +1,22 @@
 {
 	"categories": [
 		{
-			"title": "**✨ Features:**",
+			"title": "### ✨ Features:",
 			"labels": ["feature"]
 		},
 		{
-			"title": "**🐛 Fixes:**",
+			"title": "### 🐛 Fixes:",
 			"labels": ["fix"]
 		},
 		{
-			"title": "**🧪Tests:**",
+			"title": "### 🧪Tests:",
 			"labels": ["test"]
 		},
 		{
-			"title": "**💤 Chores:**",
+			"title": "### 💤 Chores:",
 			"labels": ["chore", "other"]
 		}
 	],
-	"template": "${{CHANGELOG}}\n\n\n\n<sup>[🧾Full changelog](${{RELEASE_DIFF}})</sup>",
-	"pr_template": "> ${{TITLE}}: [PR ${{NUMBER}}](${{URL}})"
+	"template": "${{CHANGELOG}}\n\n",
+	"pr_template": "- ${{TITLE}}: [PR ${{NUMBER}}](${{URL}})"
 }
