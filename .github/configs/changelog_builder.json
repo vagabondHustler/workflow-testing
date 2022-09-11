@@ -17,5 +17,15 @@
 			"labels": ["chore", "other"]
 		}
 	],
-	"pr_template": "- ${{TITLE}}"
+	"pr_template": "${{TEST}} - ${{TITLE}}",
+	"custom_placeholders": [
+    {
+      "name": "TEST",
+      "source": "BODY",
+      "transformer": {
+        "pattern": ".*",
+        "target": "```"
+      }
+    }
+  ]
 }
