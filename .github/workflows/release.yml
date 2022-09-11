@@ -36,10 +36,10 @@ jobs:
       - name: Something
         id: new_changelog
         run: |
-          echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md
-          $sha256_string = Get-FileHash -Path "tmp_changelog.md" -Algorithm SHA256 | Select-Object -ExpandProperty Hash
-          echo "[VirusTotal analysis](https://www.virustotal.com/gui/file/$sha256_string)" >> tmp_changelog.md
-      #     echo "::set-output name=changelog::$(cat tmp_changelog.md)"
+          echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.txt
+          $sha256_string = Get-FileHash -Path "tmp_changelog.txt" -Algorithm SHA256 | Select-Object -ExpandProperty Hash
+          echo "[VirusTotal analysis](https://www.virustotal.com/gui/file/$sha256_string)" >> tmp_changelog.txt
+      #     echo "::set-output name=changelog::$(cat tmp_changelog.txt)"
 
       - name: Publish
         uses: softprops/action-gh-release@v1
@@ -48,4 +48,4 @@ jobs:
           body_path: ${{steps.github_release.outputs.changelog}}
           prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
           files: |
-            tmp_changelog.md
+            tmp_changelog.txt

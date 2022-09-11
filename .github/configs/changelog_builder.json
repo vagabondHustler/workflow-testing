@@ -17,6 +17,6 @@
 			"labels": ["chore", "other"]
 		}
 	],
-	"template": "${{CHANGELOG}}\n\n [Full changelog](${{RELEASE_DIFF}})",
+	"template": "${{CHANGELOG}}\n[Full changelog](${{RELEASE_DIFF}})",
 	"pr_template": "_PR_: [**${{TITLE}}**](${{URL}})"
 }
