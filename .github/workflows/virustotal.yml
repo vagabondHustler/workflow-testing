@@ -11,8 +11,8 @@ jobs:
       - name: VirusTotal Scan
         uses: crazy-max/ghaction-virustotal@v3
         with:
-          vt_api_key: ${{ secrets.VIRUSTOTAL_API_KEY }}
-          github_token: ${{ secrets.ACTIONS_TOKEN }}
+          vt_api_key: ${{ secrets.VTK }}
+          github_token: ${{ secrets.TOKEN }}
           update_release_body: false
           files: |
             tmp_changelog.md
