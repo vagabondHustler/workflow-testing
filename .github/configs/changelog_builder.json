@@ -17,8 +17,8 @@
 			"labels": ["chore", "other"]
 		}
 	],
-	"template": "${{CHANGELOG}}${{TEST[*}}",
-	"pr_template": "${{TITLE}} :: [PR${{NUMBER}}](${{URL}})",
+	"template": "${{CHANGELOG}}${{TEST[*]}}",
+	"pr_template": "_PR_: [**${{TITLE}}**](${{URL}})",
 	"custom_placeholders": [
     {
       "name": "TEST",
