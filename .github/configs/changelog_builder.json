@@ -17,6 +17,7 @@
 			"labels": ["chore", "other"]
 		}
 	],
+	"template": "**TESTs**\n${{TEST[*]}}\n\n${{CHANGELOG}}\n\n${{TEST[*]}}",
 	"pr_template": "${{TEST}} - ${{TITLE}}",
 	"custom_placeholders": [
     {
