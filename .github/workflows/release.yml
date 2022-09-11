@@ -36,9 +36,9 @@ jobs:
       - name: Something
         id: new_changelog
         run: |
-          echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md
+          echo "${{steps.github_release.outputs.changelog}}" > ../tmp_changelog.md
           python scripts/reformat_changelog.py
-          echo "::set-output name=changelog::$(cat tmp_changelog.md)"
+          echo "::set-output name=changelog::$(cat ../tmp_changelog.md)"
 
       - name: Publish
         uses: softprops/action-gh-release@v1
