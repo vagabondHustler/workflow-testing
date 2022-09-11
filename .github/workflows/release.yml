@@ -18,12 +18,12 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
           git_user_signingkey: true
           git_commit_gpgsign: true
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "*"
-      - uses: actions/checkout@v3
-        with:
-          ref: main
+      # - uses: actions/setup-python@v4
+      #   with:
+      #     python-version: "*"
+      # - uses: actions/checkout@v3
+      #   with:
+      #     ref: main
       - name: Build changelog
         id: github_release
         uses: mikepenz/release-changelog-builder-action@v3
@@ -33,19 +33,19 @@ jobs:
           ignorePreReleases: ${{ !contains(github.ref, '-') }}
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
-      - name: Something
-        id: new_changelog
-        run: |
-          echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md
-          ls
-          python scripts/reformat_changelog.py
-          echo "::set-output name=changelog::$(cat tmp_changelog.md)"
+      # - name: Something
+      #   id: new_changelog
+      #   run: |
+      #     echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md
+      #     ls
+      #     python scripts/reformat_changelog.py
+      #     echo "::set-output name=changelog::$(cat tmp_changelog.md)"
 
       - name: Publish
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          body_path: tmp_changelog.md
+          body_path: ${{steps.github_release.outputs.changelog}}
           prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
           files: |
             tmp_changelog.txt

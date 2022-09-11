@@ -24,8 +24,8 @@
       "name": "TEST",
       "source": "BODY",
       "transformer": {
-        "pattern": ".*",
-        "target": "```"
+        "pattern": "(\\n\\n)",
+        "target": "123"
       }
     }
   ]
