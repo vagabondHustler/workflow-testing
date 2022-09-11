@@ -4,7 +4,7 @@ import sys
 
 cwd = os.getcwd()
 back_tick = "\\n\\n```\\n\\n"
-file_path = f"{cwd}\\changelog.md"
+file_path = f"{cwd}\\tmp_changelog.md"
 
 file_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', "changelog.md"))
 
