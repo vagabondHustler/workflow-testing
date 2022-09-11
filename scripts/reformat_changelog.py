@@ -1,6 +1,5 @@
 import os
 import re
-import sys
 
 cwd = os.getcwd()
 back_tick = "\\n\\n```\\n\\n"
