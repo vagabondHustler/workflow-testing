@@ -6,6 +6,8 @@ cwd = os.getcwd()
 back_tick = "\\n\\n```\\n\\n"
 file_path = f"{cwd}\\changelog.md"
 
+file_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', "changelog.md"))
+
 with open(file_path, "r+", encoding="utf-8") as f:
     file_content = f.read()
     expression = "(\\n\\n)"
