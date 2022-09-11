@@ -38,7 +38,7 @@ jobs:
         run: |
           echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md
           $sha256_string = Get-FileHash -Path "tmp_changelog.md" -Algorithm SHA256 | Select-Object -ExpandProperty Hash
-          echo "VirusTotal analysis: [_result_](https://www.virustotal.com/gui/file/$sha256_string)" >> tmp_changelog.md
+          echo "##### VirusTotal analysis: [💠](https://www.virustotal.com/gui/file/$sha256_string)" >> tmp_changelog.md
       #     echo "::set-output name=changelog::$(cat tmp_changelog.md)"
       - name: Publish
         uses: softprops/action-gh-release@v1
