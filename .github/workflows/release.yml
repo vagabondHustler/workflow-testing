@@ -37,19 +37,15 @@ jobs:
         if: ${{ !contains(github.ref, '-') }}
         run: |
           $previous_version = "v${{steps.current_version.outputs.prev_version_output}}"
-          $a = Get-Content '.github/configs/latest_release.json' -raw | ConvertFrom-Json
-          $a.version="$previous_version"
-          $a | ConvertTo-Json -depth 32| set-content 'latest_release.json'
+          echo "$previous_version > latest_release.yml
       - name: Something
         id: new_changelog
         run: |
           echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md
           $sha256_string = Get-FileHash -Path "tmp_changelog.md" -Algorithm SHA256 | Select-Object -ExpandProperty Hash
-          output=$(Get-Content '.github/configs/latest_release.json' -raw | ConvertFrom-Json)
-          echo "::set-output name=ver::$output"
+          $ver = cat latest_release.yml
           $line1 = "###### Full changelog: "
-          $vone_vtwo = ${{steps.current_version.outputs.ver}}...${{ github.ref_name }}
-          $line2 = " [${{ github.ref_name }}](https://github.com/vagabondHustler/subsearch/compare/$vone_vtwo)"
+          $line2 = " [${{ github.ref_name }}](https://github.com/vagabondHustler/subsearch/compare/$ver...${{ github.ref_name }}"
           $line3 = "<p>VirusTotal analysis: [tmp_changelog.md](https://www.virustotal.com/gui/file/$sha256_string)</sup>" 
           echo $line1$line2$line3 >> tmp_changelog.md
 
