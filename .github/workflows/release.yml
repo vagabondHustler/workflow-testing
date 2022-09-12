@@ -46,7 +46,8 @@ jobs:
           echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md
           $sha256_string = Get-FileHash -Path "tmp_changelog.md" -Algorithm SHA256 | Select-Object -ExpandProperty Hash
           $a = Get-Content '.github/configs/latest_release.json' -raw | ConvertFrom-Json
-          $latest_release = echo $a.version
+          echo $a.version > tmp.txt
+          $latest_release = cat tmp.txt
           $line1 = "###### Full changelog: "
           $line2 = " [${{ github.ref_name }}](https://github.com/vagabondHustler/subsearch/compare/$latest_release.version...${{ github.ref_name }})"
           $line3 = "<p>VirusTotal analysis: [tmp_changelog.md](https://www.virustotal.com/gui/file/$sha256_string)</sup>" 
