@@ -37,13 +37,13 @@ jobs:
         if: ${{ !contains(github.ref, '-') }}
         run: |
           $previous_version = "v${{steps.current_version.outputs.prev_version_output}}"
-          echo "$previous_version > .github\configs\latest_release.yml
+          echo "$previous_version > .github/configs/latest_release.yml
       - name: Something
         id: new_changelog
         run: |
           echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md
           $sha256_string = Get-FileHash -Path "tmp_changelog.md" -Algorithm SHA256 | Select-Object -ExpandProperty Hash
-          $ver = cat .github\configs\latest_release.yml
+          $ver = cat .github/configs/latest_release.yml
           $line1 = "###### Full changelog: "
           $line2 = " [${{ github.ref_name }}](https://github.com/vagabondHustler/subsearch/compare/$ver...${{ github.ref_name }}"
           $line3 = "<p>VirusTotal analysis: [tmp_changelog.md](https://www.virustotal.com/gui/file/$sha256_string)</sup>" 
