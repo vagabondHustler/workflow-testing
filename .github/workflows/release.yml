@@ -16,44 +16,8 @@ on:
         description: '0.1.1'
         required: false
         type: boolean
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: false
-
 
 jobs:
-  # versioning:
-  #   name: Versioning
-  #   needs: ["test", "black-isort"]
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     version_output: ${{ steps.current_version.outputs.prev_version_output }}
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         ref: main
-  #     - uses: actions/setup-python@v4
-  #       with:
-  #         python-version: "*"
-
-  #     - name: Get current version
-  #       id: current_version
-  #       run: |
-  #         output=$(python src/subsearch/data/version.py --get-version)
-  #         echo "::set-output name=prev_version_output::$output"
-
-  #     - name: Update version.py
-  #       run: python scripts/update_version.py ${{ github.ref_name }}
-
-  #     - name: Push new version
-  #       run: |
-  #         git status
-  #         git add src/subsearch/data/version.py
-  #         git commit -S -m "Bump version: v${{steps.current_version.outputs.prev_version_output}} → ${{ github.ref_name }}"
-  #         git fetch origin main
-  #         git push origin HEAD:main
-
   versioning_new:
     name: Versioning_new
     runs-on: ubuntu-latest
