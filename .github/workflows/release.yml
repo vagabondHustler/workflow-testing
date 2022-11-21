@@ -35,7 +35,7 @@ jobs:
         id: current_version
         run: |
           outputa=$(python src/subsearch/data/version.py --get-version)
-          echo "{prev_version_output}={$outputa}" >> $GITHUB_OUTPUT
+          echo "{$prev_version_output}={$outputa}" >> $GITHUB_OUTPUT
 
       - name: Update version.py
         run: echo ${{ github.ref_name }}
