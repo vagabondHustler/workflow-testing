@@ -34,13 +34,12 @@ jobs:
       - name: Get current version
         id: current_version
         run: |
-          output=$(python src/subsearch/data/version.py --get-version)
-          echo "{prev_version_output}={$output}" >> $GITHUB_OUTPUT
+          outputa=$(python src/subsearch/data/version.py --get-version)
+          echo "{prev_version_output}={$outputa}" >> $GITHUB_OUTPUT
 
       - name: Update version.py
         run: echo ${{ github.ref_name }}
 
       - name: Push new version
         run: |
-          echo "Bump version: v${{$GITHUB_OUTPUT.prev_version_output}} → ${{ github.ref_name }}"
-
+          echo "Bump version: v${{steps.current_version.output.prev_version_output}} → ${{ github.ref_name }}"
