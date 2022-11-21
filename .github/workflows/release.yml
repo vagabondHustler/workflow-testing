@@ -1,59 +1,82 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: '0.1.1'
+        required: false
+        type: boolean
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: false
+
 
 jobs:
-  build-and-publish:
-    name: Build and Publish
-    runs-on: windows-latest
+  # versioning:
+  #   name: Versioning
+  #   needs: ["test", "black-isort"]
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     version_output: ${{ steps.current_version.outputs.prev_version_output }}
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         ref: main
+  #     - uses: actions/setup-python@v4
+  #       with:
+  #         python-version: "*"
+
+  #     - name: Get current version
+  #       id: current_version
+  #       run: |
+  #         output=$(python src/subsearch/data/version.py --get-version)
+  #         echo "::set-output name=prev_version_output::$output"
+
+  #     - name: Update version.py
+  #       run: python scripts/update_version.py ${{ github.ref_name }}
+
+  #     - name: Push new version
+  #       run: |
+  #         git status
+  #         git add src/subsearch/data/version.py
+  #         git commit -S -m "Bump version: v${{steps.current_version.outputs.prev_version_output}} → ${{ github.ref_name }}"
+  #         git fetch origin main
+  #         git push origin HEAD:main
+
+  versioning_new:
+    name: Versioning_new
+    runs-on: ubuntu-latest
+    outputs:
+      version_output: ${{ steps.current_version.outputs.prev_version_output }}
     steps:
       - uses: actions/checkout@v3
-      - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v5
         with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.GPG_PASSPHRASE }}
-          git_user_signingkey: true
-          git_commit_gpgsign: true
-      # - uses: actions/setup-python@v4
-      #   with:
-      #     python-version: "*"
-      # - uses: actions/checkout@v3
-      #   with:
-      #     ref: main
-      - name: Build changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v3
-        if: startsWith(github.ref, 'refs/tags/')
+          ref: main
+      - uses: actions/setup-python@v4
         with:
-          configuration: .github/configs/changelog_builder.json
-          ignorePreReleases: ${{ !contains(github.ref, '-') }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-      - name: Set latest version
-        if: ${{ !contains(github.ref, '-') }}
-        run: |
-          $previous_version = "v${{steps.current_version.outputs.prev_version_output}}"
-          echo "$previous_version > .github/configs/latest_release.yml
-      - name: Something
-        id: new_changelog
-        run: |
-          echo "${{steps.github_release.outputs.changelog}}" > tmp_changelog.md
-          $sha256_string = Get-FileHash -Path "tmp_changelog.md" -Algorithm SHA256 | Select-Object -ExpandProperty Hash
-          $ver = cat .github/configs/latest_release.yml
-          $line1 = "###### Full changelog: "
-          $line2 = " [${{ github.ref_name }}](https://github.com/vagabondHustler/subsearch/compare/$ver...${{ github.ref_name }}"
-          $line3 = "<p>VirusTotal analysis: [tmp_changelog.md](https://www.virustotal.com/gui/file/$sha256_string)</sup>" 
-          echo $line1$line2$line3 >> tmp_changelog.md
+          python-version: "*"
 
-      - name: Publish
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          body_path: tmp_changelog.md
-          prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
-          files: |
-            tmp_changelog.md
+      - name: Get current version
+        id: current_version
+        run: |
+          output=$(python src/subsearch/data/version.py --get-version)
+          echo "{prev_version_output}={$output}" >> $GITHUB_OUTPUT
+
+      - name: Update version.py
+        run: echo ${{ github.ref_name }}
+
+      - name: Push new version
+        run: |
+          echo "Bump version: v${{steps.current_version.outputs.prev_version_output}} → ${{ github.ref_name }}"
+
