@@ -78,8 +78,8 @@ jobs:
           echo ${{ !contains(github.ref_name, 'a') || !contains(github.ref_name, 'b') }}
 
   i_should_skip:
-    if: ${{ contains(github.ref_name, 'a') || contains(github.ref_name, 'b') }}
-    name: Versioning_new
+    if: ${{ !contains(github.ref_name, 'a') && !contains(github.ref_name, 'b') }}
+    name: i should skip
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
