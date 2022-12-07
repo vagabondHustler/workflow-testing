@@ -76,7 +76,7 @@ jobs:
           echo "ref: ${{ github.ref}}, ref contains a: ${{ contains(github.ref, 'a') }}"
 
   i_should_skip:
-    if: ${{ !contains(github.ref_name, 'a') }}
+    if: ${{ !contains(github.ref_name, 'a') }} || ${{ !contains(github.ref_name, 'b') }}
     name: Versioning_new
     runs-on: ubuntu-latest
     steps:
