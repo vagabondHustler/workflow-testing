@@ -77,6 +77,8 @@ jobs:
           echo "a or b"
           echo ${{ !contains(github.ref_name, 'a') || !contains(github.ref_name, 'b') }}
           echo ${{ !contains(github.ref_name, 'a') && !contains(github.ref_name, 'b') }}
+          echo ||
+          echo &&
 
   i_should_skip:
     if: ${{ !contains(github.ref_name, 'a') && !contains(github.ref_name, 'b') }}
