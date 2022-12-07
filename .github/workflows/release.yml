@@ -72,7 +72,5 @@ jobs:
         id: get_current_version
         run: |
           echo 
-          echo "${{ needs.versioning_new.outputs.old_version }}"
-          echo "${{ needs.versioning_new.outputs.new_version }}"
-          echo "${{ !contains(github.ref_name, 'a') }}""
-          echo "${{ !contains(github.ref_name, '-') }}""
+          echo "ref_name: ${{ github.ref_name}}, ref_name contains a: ${{ contains(github.ref_name, 'a') }}"
+          echo "ref: ${{ github.ref}}, ref contains a: ${{ contains(github.ref, 'a') }}"
