@@ -25,6 +25,7 @@ jobs:
   versioning_new:
     name: Versioning_new
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -50,7 +51,11 @@ jobs:
       - name: Push new version
         run: |
           echo "Bump version ${{env.current_version}} → ${{env.pep440_version}}"
-      
+
+    outputs:
+      old_version: "${{env.current_version}}"
+      new_version: "${{env.pep440_version}}"
+
   echo_stuff:
     name: Blah
     needs: versioning_new
@@ -66,4 +71,5 @@ jobs:
       - name: echo echoy
         id: get_current_version
         run: |
-          echo "Bump version ${{env.current_version}} → ${{env.pep440_version}} works between jobs?"
+          echo "${{ needs.versioning_new.outputs.old_version }}"
+          echo "${{ needs.versioning_new.outputs.new_version }}"
