@@ -71,5 +71,8 @@ jobs:
       - name: echo echoy
         id: get_current_version
         run: |
+          echo 
           echo "${{ needs.versioning_new.outputs.old_version }}"
           echo "${{ needs.versioning_new.outputs.new_version }}"
+          echo ${{ !contains(github.ref_name, 'a') }}
+          echo ${{ !contains(github.ref_name, '-') }}
