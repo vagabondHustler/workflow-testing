@@ -32,14 +32,14 @@ jobs:
           python-version: "*"
 
       - name: Get current version
-        id: current_version
+        id: get_version
         run: |
-          outputa=$(python src/subsearch/data/version.py --get-version)
-          echo "{$prev_version_output}={$outputa}" >> $GITHUB_OUTPUT
+          echo "current_version=$(python src/subsearch/data/version.py --get-version)" >> $GITHUB_ENV
+
 
       - name: Update version.py
         run: echo ${{ github.ref_name }}
 
       - name: Push new version
         run: |
-          echo "Bump version: v${{steps.current_version.output.prev_version_output}} → ${{ github.ref_name }}"
+          echo "Bump version: ${{env.current_version}} → ${{ github.ref_name }}"
