@@ -1,28 +1,30 @@
 name: Release
 
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       logLevel:
+#         description: 'Log level'
+#         required: true
+#         default: 'warning'
+#         type: choice
+#         options:
+#         - info
+#         - warning
+#         - debug
+#       tags:
+#         description: '0.1.1'
+#         required: false
+#         type: boolean
 on:
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
-      tags:
-        description: '0.1.1'
-        required: false
-        type: boolean
+  push:
+    tags:
+      - "v*.*.*"
 
 jobs:
   versioning_new:
     name: Versioning_new
     runs-on: ubuntu-latest
-    outputs:
-      version_output: ${{ steps.current_version.outputs.prev_version_output }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -32,14 +34,19 @@ jobs:
           python-version: "*"
 
       - name: Get current version
-        id: get_version
+        id: get_current_version
         run: |
           echo "current_version=$(python src/subsearch/data/version.py --get-version)" >> $GITHUB_ENV
 
+      - name: Remove v from tags
+        id: remove_v
+        run: |
+          v_version=${{ github.ref_name }}
+          echo "pep440_version=${v_version:1}" >> $GITHUB_ENV
 
       - name: Update version.py
         run: echo ${{ github.ref_name }}
 
       - name: Push new version
         run: |
-          echo "Bump version: ${{env.current_version}} → ${{ github.ref_name }}"
+          echo "Bump version ${{env.current_version}} → ${{env.pep440_version}}"
